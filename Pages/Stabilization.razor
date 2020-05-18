@@ -1,0 +1,135 @@
+﻿@using System.Net.Sockets;
+@using System.Text;
+@using System;
+@using BTR_Server.Data;
+@using BTR_Server.Protocol;
+
+@page "/stabilization"
+
+<h1>STABILIZATION MODULE</h1>
+
+
+<form>
+    <h5>Режим керування</h5>
+    <!-- Default inline 1-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" checked="checked" class="custom-control-input" id="motorMode1" name="motorMode" @onclick="motorMode1">
+        <label class="custom-control-label" for="motorMode1">Ручн</label>
+    </div>
+
+    <!-- Default inline 2-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="motorMode2" name="motorMode" @onclick="motorMode2">
+        <label class="custom-control-label" for="motorMode2">Стаб</label>
+    </div>
+
+    <!-- Default inline 3-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="motorMode3" name="motorMode" @onclick="motorMode3">
+        <label class="custom-control-label" for="motorMode3">Трек</label>
+    </div>
+</form>
+<br />
+<form>
+    <h5>Режим камери</h5>
+    <!-- Default inline 1-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" checked="checked" class="custom-control-input" id="cameraMode1" name="cameraMode" @onclick="cameraMode1">
+        <label class="custom-control-label" for="cameraMode1">Шир</label>
+    </div>
+
+    <!-- Default inline 2-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="cameraMode2" name="cameraMode" @onclick="cameraMode2">
+        <label class="custom-control-label" for="cameraMode2">Вузьк</label>
+    </div>
+
+    <!-- Default inline 3-->
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="cameraMode3" name="cameraMode" @onclick="cameraMode3">
+        <label class="custom-control-label" for="cameraMode3">Тепл</label>
+    </div>
+</form>
+
+
+
+
+
+@code {
+    ProtocolAPI protocol = new ProtocolAPI();
+    StabData StabData = new Data.StabData();
+
+    //Motor modes
+    private int FULL_MANUAL_MODE = 1;
+    private int STABILISATION_MANUAL_MODE = 2;
+    private int AUTO_TRACKING_MODE = 3;
+
+    //Shoot modes
+    private int SINGLE_MODE = 1000;
+    private int BURST_MODE = 2000;
+    private int SEMI_BURST_MODE = 3000;
+
+    //Weapon type
+    private int GUN = 10000;
+    private int GRENADE_LAUNCHER = 20000;
+
+    //Shoot status
+    private int SHOOT_ON = 20;
+    private int SHOOT_OFF = 10;
+
+    //Zero motor ststus
+    private int ZERO_MOTOR_ON = 2;
+    private int ZERO_MOTOR_OFF = 1;
+
+    //Zero sensor status
+    private int ZERO_SENSOR_ON = 200;
+    private int ZERO_SENSOR_OFF = 100;
+
+    //Shoot status
+    private long SHOTGUN_SHOOT_ON = 200000;
+    private long SHOTGUN_SHOOT_OFF = 100000;
+
+    //Camera mode
+    private long WIDE_CAMERA = 1000000;
+    private long NARROW_CAMERA = 2000000;
+    private long THERMALVISOR_CAMERA = 3000000;
+
+    void motorMode1()
+    {
+        StabData.MotorControlMode = FULL_MANUAL_MODE;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void motorMode2()
+    {
+        StabData.MotorControlMode = STABILISATION_MANUAL_MODE;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void motorMode3()
+    {
+        StabData.MotorControlMode = AUTO_TRACKING_MODE;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+
+
+    void cameraMode1()
+    {
+        StabData.CameraViewMode = WIDE_CAMERA;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void cameraMode2()
+    {
+        StabData.CameraViewMode = NARROW_CAMERA;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void cameraMode3()
+    {
+        StabData.CameraViewMode = THERMALVISOR_CAMERA;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+}
