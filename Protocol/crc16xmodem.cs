@@ -13,15 +13,12 @@ namespace BTR_Server.Protocol
             crc = crc_table[(crc >> 8 ^ bt) & 0xffU] ^ (crc << 8);
             return crc;
         }
-        public ushort MakeCRC16(byte[] uk)
+        public ushort MakeCRC16(byte[] uk, int length)
         {
             ushort ocrc = 0x0000;
-            byte bt;
-
-            foreach (byte b in uk)
+            for(int i=0; i < length; i++)
             {
-                bt = b;
-                ocrc = (ushort)UPDATECRC16(bt, ocrc);
+                ocrc = (ushort)UPDATECRC16(uk[i], ocrc);
             }
             return ocrc;
         }

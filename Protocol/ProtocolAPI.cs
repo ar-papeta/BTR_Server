@@ -9,7 +9,7 @@ namespace BTR_Server.Protocol
     public class ProtocolAPI
     {
         private const int Port = 12786;
-        private const string StabServer = "192.168.1.202";
+        private const string StabServer = "192.168.1.3";
         private const string UtilityServer = "192.168.1.201";
         private const string PowerServer = "192.168.1.200";
 
@@ -36,22 +36,22 @@ namespace BTR_Server.Protocol
                 data.ServiceInfo_1 = 0;
                 data.ServiceInfo_2 = 0;
                 
+
+                data.ServiceInfo_1 += data.MotorControlMode;
+                data.ServiceInfo_1 += (data.ShotStatus != 0 ? data.ShotStatus : 10);
+                data.ServiceInfo_1 += (data.ResetGyroscopesStatus != 0 ? data.ResetGyroscopesStatus : 100);
+                data.ServiceInfo_1 += (data.ShootMode !=0 ? data.ShootMode : 1000);
+                data.ServiceInfo_1 += (data.WeaponType !=0 ? data.WeaponType : 10000);
+                data.ServiceInfo_1 += (data.ShotgunShotStatus != 0 ? data.ShotgunShotStatus : 100000);
+                data.ServiceInfo_1 += (data.CameraViewMode != 0 ? data.CameraViewMode : 1000000);
+                data.ServiceInfo_2 += (data.ResetMotorStatus != 0 ? data.ResetMotorStatus : 1);
+
                 StabFloats.Add(data.EncoderVertData);
                 StabFloats.Add(data.EncoderVertData);
                 StabFloats.Add(data.TrackingVertData);
                 StabFloats.Add(data.TrackingHorData);
                 StabFloats.Add(data.CorrectionVertData);
                 StabFloats.Add(data.CorrectionHorData);
-
-                data.ServiceInfo_1 += data.MotorControlMode;
-                data.ServiceInfo_1 += data.ShotStatus;
-                data.ServiceInfo_1 += data.ResetGyroscopesStatus;
-                data.ServiceInfo_1 += data.ShootMode;
-                data.ServiceInfo_1 += data.WeaponType;
-                data.ServiceInfo_1 += data.ShotgunShotStatus;
-                data.ServiceInfo_1 += data.CameraViewMode;
-                data.ServiceInfo_2 += data.ResetMotorStatus;
-
                 StabFloats.Add(data.ServiceInfo_1);
                 StabFloats.Add(data.ServiceInfo_2);
                 int i = 0;
@@ -61,12 +61,12 @@ namespace BTR_Server.Protocol
                     foreach(byte b in bytes)
                     {
                         StabPacket[i++] = b;
-                        Console.WriteLine(StabPacket[i - 1]);
+                        
                     }
                     
                 }
                 int dataLength = 0;
-                StabClient.TCPrequest(BuildPacket(0x01, 0x11, (byte)i, 0x2b, StabPacket, out dataLength), dataLength, out ResponcePacket);
+                ResponcePacket = StabClient.TCPrequest(BuildPacket(0x01, 0x11, (byte)i, 0x2b, StabPacket, out dataLength), dataLength);
 
             }
             else if (DataInstance is UtilityData )
@@ -82,7 +82,7 @@ namespace BTR_Server.Protocol
 
         private byte[] BuildPacket(byte Dst, byte Src, byte Len, byte CMD, byte[] data, out int length)
         {
-            byte[] DataToSend = new byte[Len + 7];
+            byte[] DataToSend = new byte[255];
             DataToSend[0] = 0x7e;
             DataToSend[1] = Dst;
             DataToSend[2] = Src;
@@ -93,13 +93,17 @@ namespace BTR_Server.Protocol
             {
                 DataToSend[i] = data[i];
             }
+            
+            int staffLength = ByteStaffingBuild(DataToSend, Len + 5);
+            crc.MakeCRC16(StuffedPacket, staffLength);
             return DataToSend;
         } 
         
         private int ByteStaffingBuild(byte[] _data , int length)
         {
-            int j = 0;
-            for (int i = 0; i < length; i++)
+            int j = 1;
+            StuffedPacket[0] = 0x7e;
+            for (int i = 1; i < length; i++)
             {
                 if (_data[i] == 0x7e)
                 {

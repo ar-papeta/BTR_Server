@@ -14,16 +14,16 @@ namespace BTR_Server.Protocol
         private int port;
         //byte[] requestData = { 0x7e, 0x1, 0x2 };
         //byte[] responceData = new byte[255];
-        StringBuilder response = new StringBuilder();
+        
         public MyTCPClient(String server, int port)
         {
             this.server = server;
             this.port = port;
         }
 
-        public void TCPrequest(byte[] requestData, int dataLength, out byte[] responceData)
+        public byte[] TCPrequest(byte[] requestData, int dataLength)
         {
-            responceData = null;
+            byte[] responceData = new byte[255];
             try
             {
                 TcpClient client = new TcpClient();
@@ -31,24 +31,26 @@ namespace BTR_Server.Protocol
                 NetworkStream stream = client.GetStream();
 
 
-                stream.Write(requestData, 0, requestData.Length);
-                do
+                stream.Write(requestData, 0, dataLength);
+                while (stream.DataAvailable)
                 {
                     int bytes = stream.Read(responceData, 0, responceData.Length);
-                    response.Append(Encoding.UTF8.GetString(responceData, 0, bytes));
                 }
-                while (stream.DataAvailable); // пока данные есть в потоке
+                 // пока данные есть в потоке
                                               // Закрываем потоки
                 stream.Close();
                 client.Close();
+                return responceData;
             }
             catch (SocketException e)
             {
                 Console.WriteLine("SocketException: {0}", e);
+                return responceData;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Exception: {0}", e.Message);
+                return responceData;
             }
 
         }
