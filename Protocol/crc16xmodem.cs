@@ -13,14 +13,15 @@ namespace BTR_Server.Protocol
             crc = crc_table[(crc >> 8 ^ bt) & 0xffU] ^ (crc << 8);
             return crc;
         }
-        public ushort MakeCRC16(byte[] uk, int length)
+        public byte[] MakeCRC16(byte[] uk, int length)
         {
             ushort ocrc = 0x0000;
             for(int i=0; i < length; i++)
             {
                 ocrc = (ushort)UPDATECRC16(uk[i], ocrc);
             }
-            return ocrc;
+            byte[] bytes = BitConverter.GetBytes(ocrc);
+            return bytes;
         }
         private uint[] crc_table = {
         0x0000U, 0x1021U, 0x2042U, 0x3063U, 0x4084U, 0x50a5U, 0x60c6U, 0x70e7U,

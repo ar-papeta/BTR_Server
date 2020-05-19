@@ -182,10 +182,21 @@ app {
     }
 }
 #joystick {
-    padding-top: 20px;
-    padding-bottom:20px;
-
+    padding-top:5px;
+    padding-bottom:5px;
+    width:200px;
+    height:200px;
 }
 .buttons {
     margin-top:10px;
+}
+#reset {
+    width:190px;
+}
+#engine {
+    width:190px;
+}
+.container {
+    margin-left:auto;
+    margin-right:auto;
 }

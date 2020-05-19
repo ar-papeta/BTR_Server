@@ -88,15 +88,16 @@ namespace BTR_Server.Protocol
             DataToSend[2] = Src;
             DataToSend[3] = Len;
             DataToSend[4] = CMD;
-            length = Len + 7;
             for (int i = 5; i < Len + 5; i++)
             {
                 DataToSend[i] = data[i];
-            }
-            
-            int staffLength = ByteStaffingBuild(DataToSend, Len + 5);
-            crc.MakeCRC16(StuffedPacket, staffLength);
-            return DataToSend;
+            }          
+            int stuffLength = ByteStaffingBuild(DataToSend, Len + 5);
+            byte[] crcBytes = crc.MakeCRC16(StuffedPacket, stuffLength);
+            StuffedPacket[stuffLength] = crcBytes[0];
+            StuffedPacket[stuffLength +1] = crcBytes[1];
+            length = stuffLength + 2;
+            return StuffedPacket;
         } 
         
         private int ByteStaffingBuild(byte[] _data , int length)
