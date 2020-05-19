@@ -27,7 +27,8 @@ namespace BTR_Server
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,12 +37,14 @@ namespace BTR_Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
                 app.UseExceptionHandler("/Error");
+                
             }
-
+            app.UseBrowserLink();
             app.UseStaticFiles();
 
             app.UseRouting();
