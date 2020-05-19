@@ -6,50 +6,144 @@
 
 @page "/stabilization"
 
-<h1>STABILIZATION MODULE</h1>
-
+<h1>STABILIZATION MODULE </h1>
 
 <form>
     <h5>Режим керування</h5>
-    <!-- Default inline 1-->
+
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" checked="checked" class="custom-control-input" id="motorMode1" name="motorMode" @onclick="motorMode1">
-        <label class="custom-control-label" for="motorMode1">Ручн</label>
+        <input type="radio" class="custom-control-input" id="motorMode1" name="motorMode">
+        <label class="custom-control-label" for="motorMode1">Ручний режим</label>
     </div>
 
-    <!-- Default inline 2-->
+
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="motorMode2" name="motorMode" @onclick="motorMode2">
-        <label class="custom-control-label" for="motorMode2">Стаб</label>
+        <input type="radio" class="custom-control-input" id="motorMode2" name="motorMode">
+        <label class="custom-control-label" for="motorMode2">Режим стабілізація</label>
     </div>
 
-    <!-- Default inline 3-->
+
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="motorMode3" name="motorMode" @onclick="motorMode3">
-        <label class="custom-control-label" for="motorMode3">Трек</label>
+        <input type="radio" class="custom-control-input" id="motorMode3" name="motorMode">
+        <label class="custom-control-label" for="motorMode3">Автоматичний режим</label>
     </div>
 </form>
 <br />
 <form>
     <h5>Режим камери</h5>
-    <!-- Default inline 1-->
+
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" checked="checked" class="custom-control-input" id="cameraMode1" name="cameraMode" @onclick="cameraMode1">
-        <label class="custom-control-label" for="cameraMode1">Шир</label>
+        <input type="radio" class="custom-control-input" id="cameraMode1" name="cameraMode" @onclick="cameraMode1">
+        <label class="custom-control-label" for="cameraMode1">Широка камера</label>
     </div>
 
-    <!-- Default inline 2-->
+
     <div class="custom-control custom-radio custom-control-inline">
         <input type="radio" class="custom-control-input" id="cameraMode2" name="cameraMode" @onclick="cameraMode2">
-        <label class="custom-control-label" for="cameraMode2">Вузьк</label>
+        <label class="custom-control-label" for="cameraMode2">Вузька камера</label>
     </div>
 
-    <!-- Default inline 3-->
+
     <div class="custom-control custom-radio custom-control-inline">
         <input type="radio" class="custom-control-input" id="cameraMode3" name="cameraMode" @onclick="cameraMode3">
-        <label class="custom-control-label" for="cameraMode3">Тепл</label>
+        <label class="custom-control-label" for="cameraMode3">Тепловізор</label>
     </div>
 </form>
+<br />
+<form>
+    <h5>Режим стрільби</h5>
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="single_fire" name="fire">
+        <label class="custom-control-label" for="single_fire">Одиночні</label>
+    </div>
+
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="auto_fire" name="fire">
+        <label class="custom-control-label" for="auto_fire">Автомат</label>
+    </div>
+
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="semi_fire" name="fire">
+        <label class="custom-control-label" for="semi_fire">Полуавтомат</label>
+    </div>
+</form>
+<br />
+
+<form>
+    <h5>Тип зброї</h5>
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="garmata" name="gun">
+        <label class="custom-control-label" for="garmata">Гармата</label>
+    </div>
+
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="granatomet" name="gun">
+        <label class="custom-control-label" for="granatomet">Гранатомет</label>
+    </div>
+
+</form>
+<br />
+<form>
+    <button type="button" class="btn btn-dark btn-circle" id="reset">Обнулення датчиків</button>
+    <button type="button" class="btn btn-dark btn-circle" id="engine">Мотори в 0</button>
+</form>
+
+<div class="container">
+    <div id="joystick" style="width:20%">
+        <svg width="100%" height="100%" viewBox="0 0 100 100">
+            <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgb(168,168,168);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(239,239,239);stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="50" fill="url(#grad1)" />
+            <circle cx="50" cy="50" r="47" fill="url(#grad2)" stroke="black" stroke-width="1.5px" />
+            <circle cx="50" cy="50" r="44" fill="url(#grad3)" />
+            <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px" onclick="alert('CENTER');" />
+            <path d="M50,14 54,22 46,22Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
+            <path d="M50,86 54,78 46,78Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
+            <path d="M14,50 22,54 22,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
+            <path d="M86,50 78,54 78,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
+        </svg>
+    </div>
+</div>
+<h4 class="h4 dark-grey-text mt-5 mb-4">Rounded radio buttons</h4>
+
+<section class="border p-3">
+
+    <!--Radio buttons-->
+    <div class="btn-group" data-toggle="buttons">
+
+        <label class="btn btn-purple btn-rounded active btn-md form-check-label">
+            <input class="form-check-input" type="radio" checked autocomplete="off"> radio 1 (pre-checked)
+        </label>
+
+        <label class="btn btn-purple btn-rounded btn-md form-check-label">
+            <input class="form-check-input" type="radio" autocomplete="off"> radio 2
+        </label>
+
+        <label class="btn btn-purple btn-rounded btn-md form-check-label">
+            <input class="form-check-input" type="radio" autocomplete="off"> radio 3
+        </label>
+
+    </div>
+    <!--Radio buttons-->
+
+</section>
 
 
 

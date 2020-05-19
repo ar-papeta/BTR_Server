@@ -181,3 +181,11 @@ app {
         display: block;
     }
 }
+#joystick {
+    padding-top: 20px;
+    padding-bottom:20px;
+
+}
+.buttons {
+    margin-top:10px;
+}
