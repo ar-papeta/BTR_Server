@@ -6,75 +6,96 @@
 
 <h1>STABILIZATION MODULE</h1>
 <div class="project">
-<div class="wrapper">
-       <header class= "header2">Отримання значень датчиків з контроллера
-           <div>
-               <tr>
-                   <th><input type="number" size="10" placeholder="GPSx"></th>
-                   <th><input type="number" size="10" placeholder="GPSy"></th>
-                   <th><input type="number" size="10" placeholder="Yg"></th>
-                   <th><input type="number" size="10" placeholder="Pg"></th>
-                   <th><input type="number" size="10" placeholder="Rg"></th>
-                   <th><input type="number" size="10" placeholder="Eview"></th>
-                   <th><input type="number" size="10" placeholder="Ev"></th>
-                   <th><input type="number" size="10" placeholder="Eg"></th>
-                   <th><input type="number" size="10" placeholder="Pa tm"></th>
-                   <th><input type="number" size="10" placeholder="T"></th>
-                   <th><input type="number" size="10" placeholder="Sw"></th>
-                   <th><input type="number" size="10" placeholder="Dw"></th>
-                  </tr>
-           </div>
-       </header>
-       <article class="main">
-         <p>Налаштування  зображення вузької та широкої камер  з ОЕП-ВМ</p>
-        
-       
-       </article>
 
-       <aside class="aside aside-1">Запит на отимання відстані
-           <tr>
-               <th><input type="text" size="10" placeholder="Значення 1"></th>
-               <th><input type="text" size="10" placeholder="Значення 2"></th>
-               <th><input type="text" size="10" placeholder="Значення 3"></th>
-           </tr>
-       </aside>
-       <aside class="aside aside-2">Налаштування зображення тепловізора</aside>
-     </div>
-<div class="buttons">
-    <div id="joystick" style="width:20%">
-        <svg width="100%" height="100%" viewBox="0 0 100 100">
-            <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgb(168,168,168);stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:rgb(239,239,239);stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="50" fill="url(#grad1)" />
-            <circle cx="50" cy="50" r="47" fill="url(#grad2)" stroke="black" stroke-width="1.5px" />
-            <circle cx="50" cy="50" r="44" fill="url(#grad3)" />
-            <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px" onclick="alert('CENTER');" />
-            <path d="M50,14 54,22 46,22Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
-            <path d="M50,86 54,78 46,78Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
-            <path d="M14,50 22,54 22,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
-            <path d="M86,50 78,54 78,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
-        </svg>
+
+    <header class="header2">
+
+        Отримання значень датчиків з контроллера
+        <div>
+            <tr>
+                <th><input type="number" size="10" placeholder="GPSx"></th>
+                <th><input type="number" size="10" placeholder="GPSy"></th>
+                <th><input type="number" size="10" placeholder="Yg"></th>
+                <th><input type="number" size="10" placeholder="Pg"></th>
+                <th><input type="number" size="10" placeholder="Rg"></th>
+                <th><input type="number" size="10" placeholder="Eview"></th>
+                <th><input type="number" size="10" placeholder="Ev"></th>
+                <th><input type="number" size="10" placeholder="Eg"></th>
+                <th><input type="number" size="10" placeholder="Pa tm"></th>
+                <th><input type="number" size="10" placeholder="T"></th>
+                <th><input type="number" size="10" placeholder="Sw"></th>
+                <th><input type="number" size="10" placeholder="Dw"></th>
+            </tr>
+        </div>
+    </header>
+
+    <div class="three_cls">
+        <aside class="aside aside-1">
+            Запит на отимання відстані
+            <tr>
+                <th><input type="text" size="10" placeholder="Значення 1"></th>
+                <th><input type="text" size="10" placeholder="Значення 2"></th>
+                <th><input type="text" size="10" placeholder="Значення 3"></th>
+            </tr>
+        </aside>
+
     </div>
-    <div class="2buttons">
-        Вибір камери
-        <button class="camera_n"> n</button>
-        <button class="camera_w"> w </button>
+    <div class="teplo_setup">
+        Налаштування зображення тепловізора
+        <button type="button" class="btn btn-dark btn-circle" id="focus_plus">+</button>
+        <button type="button" class="btn btn-dark btn-circle" id="focus_minus">-</button>
+        <button type="button" class="btn btn-dark btn-circle" id="bright_plus">+</button>
+        <button type="button" class="btn btn-dark btn-circle" id="bright_minus">-</button>
+        <button type="button" class="btn btn-dark btn-circle" id="contrast_plus">+</button>
+        <button type="button" class="btn btn-dark btn-circle" id="contrast_minus">-</button>
+        <button type="button" class="btn btn-dark btn-circle" id="calib">calib</button>
+        <button type="button" class="btn btn-dark btn-circle" id="invertion">invertion</button>
+        <button type="button" class="btn btn-dark btn-circle" id="cross">cross</button>
+        <button type="button" class="btn btn-dark btn-circle" id="save_setup">save setup</button>
+
+
+
+
+
+    </div>
+    <div class="buttons">
+        <article class="main">
+            <p>Налаштування  зображення вузької та широкої камер  з ОЕП-ВМ</p>
+        </article>
+        <div id="joystick" style="width:20%">
+            <svg width="100%" height="100%" viewBox="0 0 100 100">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgb(168,168,168);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(239,239,239);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="50" fill="url(#grad1)" />
+                <circle cx="50" cy="50" r="47" fill="url(#grad2)" stroke="black" stroke-width="1.5px" />
+                <circle cx="50" cy="50" r="44" fill="url(#grad3)" />
+                <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px" onclick="alert('CENTER');" />
+                <path d="M50,14 54,22 46,22Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
+                <path d="M50,86 54,78 46,78Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
+                <path d="M14,50 22,54 22,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
+                <path d="M86,50 78,54 78,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
+            </svg>
+        </div>
+        <div class="2buttons">
+            Вибір камери
+            <button class="camera_n"> n</button>
+            <button class="camera_w"> w </button>
+        </div>
     </div>
 </div>
-    </div>
-
+    
 
 
 @code {

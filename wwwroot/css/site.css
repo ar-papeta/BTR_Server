@@ -200,7 +200,7 @@ app {
     margin-left:auto;
     margin-right:auto;
 }
-.project {
+.project, .three_cls, .teplo_setup, .buttons {
     border: 2px solid black;
     padding: 5px;
 }
