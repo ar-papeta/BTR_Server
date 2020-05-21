@@ -189,6 +189,13 @@ app {
 }
 .buttons {
     margin-top:10px;
+    
+
+}
+.two_cls{
+    margin-top:10px;
+    
+    
 }
 #reset {
     width:190px;
@@ -200,7 +207,58 @@ app {
     margin-left:auto;
     margin-right:auto;
 }
-.project, .three_cls, .teplo_setup, .buttons {
+.two_cls, .buttons {
     border: 2px solid black;
     padding: 5px;
+
+}
+.path {
+    width: 40px;
+    height: 40px;
+}
+#focus_minus, #bright_minus, #contrast_minus, #focus_plus, #bright_plus, #contrast_plus {
+    width: 40px;
+    height: 40px;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+    width: 100%;
+}
+
+    table tr {
+        background: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+@media screen and (max—width: 600px) {
+    table thead {
+        display: none;
+    }
+
+    table tr {
+        border—bottom: 3px solid #ddd;
+        display: block;
+    }
+
+    table td {
+        border—bottom: 1px solid #ddd;
+        display: block;
+        text—align: right;
+    }
+
+        table td:before {
+            content: attr(aria—label);
+            float: left;
+        }
 }

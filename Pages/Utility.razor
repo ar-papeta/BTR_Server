@@ -5,67 +5,128 @@
 @page "/utility"
 
 <h1>STABILIZATION MODULE</h1>
-<div class="project">
 
 
-    <header class="header2">
-
-        Отримання значень датчиків з контроллера
-        <div>
+<button type="button" class="btn btn-dark btn-circle" id="controller_value">Отримання значень датчиків з контроллера</button> 
+<br />
+    <table>
+        <thead>
             <tr>
-                <th><input type="number" size="10" placeholder="GPSx"></th>
-                <th><input type="number" size="10" placeholder="GPSy"></th>
-                <th><input type="number" size="10" placeholder="Yg"></th>
-                <th><input type="number" size="10" placeholder="Pg"></th>
-                <th><input type="number" size="10" placeholder="Rg"></th>
-                <th><input type="number" size="10" placeholder="Eview"></th>
-                <th><input type="number" size="10" placeholder="Ev"></th>
-                <th><input type="number" size="10" placeholder="Eg"></th>
-                <th><input type="number" size="10" placeholder="Pa tm"></th>
-                <th><input type="number" size="10" placeholder="T"></th>
-                <th><input type="number" size="10" placeholder="Sw"></th>
-                <th><input type="number" size="10" placeholder="Dw"></th>
+                <th scope=«col»>GPSx</th>
+                <th scope=«col»>GPSy</th>
+                <th scope=«col»>Yg</th>
+                <th scope=«col»>Pg</th>
+                <th scope=«col»>Rg</th>
+                <th scope=«col»>Eview</th>
+                
             </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td aria-label="GPSx">3415</td>
+                <td aria-label="GPSy">2216</td>
+                <td aria-label="Yg">51110</td>
+                <td aria-label="Pg">1246</td>
+                <td aria-label="Rg">5462</td>
+                <td aria-label="Eview">9876</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+<table>
+    <thead>
+        <tr>
+            <th scope=«col»>Ev</th>
+            <th scope=«col»>Eg</th>
+            <th scope=«col»>Patm</th>
+            <th scope=«col»>T</th>
+            <th scope=«col»>Sw</th>
+            <th scope=«col»>Dw</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td aria-label="Ev">5460</td>
+            <td aria-label="Eg">4566</td>
+            <td aria-label="Patm">2342</td>
+            <td aria-label="T">4566</td>
+            <td aria-label="Sw">5460</td>
+            <td aria-label="Dw">4746</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<div class="three_cls">
+
+    <div class="two_cls">
+            
+        <div class="distance_req">
+            <button type="button" class="btn btn-dark btn-circle" id="distance_request">Запит на отимання відстані </button>
+            <table>
+      <tr>
+                <th scope="col">Значення 1</th>
+                <th scope="col">Значення 2</th>
+                <th scope="col">Значення 3</th>
+            </tr>
+                </table>
         </div>
-    </header>
 
-    <div class="three_cls">
-        <aside class="aside aside-1">
-            Запит на отимання відстані
-            <tr>
-                <th><input type="text" size="10" placeholder="Значення 1"></th>
-                <th><input type="text" size="10" placeholder="Значення 2"></th>
-                <th><input type="text" size="10" placeholder="Значення 3"></th>
-            </tr>
-        </aside>
 
-    </div>
-    <div class="teplo_setup">
-        Налаштування зображення тепловізора
-        <button type="button" class="btn btn-dark btn-circle" id="focus_plus">+</button>
-        <button type="button" class="btn btn-dark btn-circle" id="focus_minus">-</button>
-        <button type="button" class="btn btn-dark btn-circle" id="bright_plus">+</button>
-        <button type="button" class="btn btn-dark btn-circle" id="bright_minus">-</button>
-        <button type="button" class="btn btn-dark btn-circle" id="contrast_plus">+</button>
-        <button type="button" class="btn btn-dark btn-circle" id="contrast_minus">-</button>
+
+
+        <h5> Налаштування зображення тепловізора </h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Focus</th>
+                    <th scope="col">Bright</th>
+                    <th scope="col">Contrast</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_plus">+</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_plus">+</button></td>
+                    <td> <button type="button" class="btn btn-dark btn-circle" id="contrast_plus">+</button></td>
+
+                </tr>
+                <tr>
+
+                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_minus">-</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_minus">-</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="contrast_minus">-</button></td>
+
+                </tr>
+
+
+
+            </tbody>
+        </table>
+
         <button type="button" class="btn btn-dark btn-circle" id="calib">calib</button>
         <button type="button" class="btn btn-dark btn-circle" id="invertion">invertion</button>
         <button type="button" class="btn btn-dark btn-circle" id="cross">cross</button>
         <button type="button" class="btn btn-dark btn-circle" id="save_setup">save setup</button>
 
-
-
-
-
     </div>
+
+
+
+
     <div class="buttons">
         <article class="main">
-            <p>Налаштування  зображення вузької та широкої камер  з ОЕП-ВМ</p>
+            <h5> Налаштування  зображення вузької та широкої камер  з ОЕП-ВМ</h5>
         </article>
-        <div id="joystick" style="width:20%">
+        <div id="joystick">
             <svg width="100%" height="100%" viewBox="0 0 100 100">
                 <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <linearGradient id="grad1" x1="3%" y1="3%" x2="3%" y2="100%">
                         <stop offset="0%" style="stop-color:rgb(16,16,16);stop-opacity:1" />
                         <stop offset="100%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
                     </linearGradient>
@@ -82,10 +143,14 @@
                 <circle cx="50" cy="50" r="47" fill="url(#grad2)" stroke="black" stroke-width="1.5px" />
                 <circle cx="50" cy="50" r="44" fill="url(#grad3)" />
                 <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px" onclick="alert('CENTER');" />
-                <path d="M50,14 54,22 46,22Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
-                <path d="M50,86 54,78 46,78Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
-                <path d="M14,50 22,54 22,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
-                <path d="M86,50 78,54 78,46Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
+
+
+
+
+                <path d="M50,9 60,26 40,26Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
+                <path d="M50,91 60,74 40,74Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
+                <path d="M9,50 26,60 26,40Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
+                <path d="M91,50 74,60 74,40Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
             </svg>
         </div>
         <div class="2buttons">
