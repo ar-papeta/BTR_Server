@@ -262,3 +262,20 @@ table {
             float: left;
         }
 }
+.main-page-form
+{
+    display:inline-flex;
+}
+.form-group {
+    width: 300px;
+}
+
+.page-form{
+    padding: 30px;
+    padding: 30px;
+    width:30%;
+}
+
+.col-md{
+    width: 400px;
+}
