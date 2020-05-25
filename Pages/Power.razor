@@ -1,29 +1,74 @@
 ﻿@page "/power"
 
+
 @using BTR_Server.Data
 
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service.</p>
+<h1>POWER CONTROL MODULE</h1>
 
 
+<div class="em_status">
+    <h5>Електромагнітні клапани</h5>
+    <form name="search">
+        <input type="button" value="ARTELOX" onclick="sendForm();" />
+    </form>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th id="em_1" value=""> EM1</th>
+            <th id="em_2" value="">EM2</th>
+            <th id="em_3" value="">EM3</th>
+            <th id="em_4" value="">EM4</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td><span class="badge badge-pill badge-success">On</span></td>
+            <td><span class="badge badge-pill badge-danger">OFF</span></td>
+            <td><span class="badge badge-pill badge-success">On</span></td>
+            <td<span class="badge badge-pill badge-danger">OFF</span></td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Відкат накат</th>
+            <th scope="col">Підтяг</th>
+            <th scope="col">Перемикання подачі</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+            <td><button type="button" class="btn btn-dark btn-circle" id="vidkat">Відкат</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="pidtyag">Підтяг верхньої стрічки</button></td>
+            <td aria-label="Ev">5460</td>
+
+        </tr>
+        <tr>
+
+            <td><button type="button" class="btn btn-dark btn-circle" id="nakat">Накат</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="pidtyag_up">Підтяг нижньої стрічки</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="peremikannya">Перемиканяня</button></td>
+
+        </tr>
+
+
+
+    </tbody>
+</table>
 
 
 @code {
-   
+
 }
+
