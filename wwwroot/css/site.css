@@ -268,12 +268,19 @@ table {
     grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: repeat(1, 300px);
+   
 }
 
 .form-group {
-    width:300px;
+    width: 300px;
+    
 }
 
 .col-md, .span8{
     width: 400px;
+}
+.page-form {
+    border: 1px solid #ddd;
+    margin: 3px;
+    padding:10px;
 }
