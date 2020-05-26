@@ -247,14 +247,14 @@ table {
     }
 
     table tr {
-        border—bottom: 3px solid #ddd;
+        /* border—bottom: 3px solid #ddd; */
         display: block;
     }
 
     table td {
-        border—bottom: 1px solid #ddd;
+      /*  border—bottom: 1px solid #ddd; */
         display: block;
-        text—align: right;
+      /*  text—align: right; */
     }
 
         table td:before {
@@ -262,18 +262,15 @@ table {
             float: left;
         }
 }
-.main-page-form
-{
-    display:inline-flex;
-}
-.form-group {
-    width: 300px;
+.main-page-form {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(2, 300px);
 }
 
-.page-form{
-    padding: 30px;
-    padding: 30px;
-    width:30%;
+.form-group {
+    width:300px;
 }
 
 .col-md{
