@@ -12,6 +12,7 @@ a, .btn-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
+    width:300px;
 }
 
 app {
@@ -266,13 +267,13 @@ table {
     display: grid;
     grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: repeat(2, 300px);
+    grid-template-rows: repeat(1, 300px);
 }
 
 .form-group {
     width:300px;
 }
 
-.col-md{
+.col-md, .span8{
     width: 400px;
 }
