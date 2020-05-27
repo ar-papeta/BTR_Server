@@ -12,7 +12,8 @@ a, .btn-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-    width:300px;
+    width:100%;
+    max-width:300px;
 }
 
 app {
@@ -272,12 +273,13 @@ table {
 }
 
 .form-group {
-    width: 300px;
-    
+    width:100%;
+    width:100%;
+    max-width:300px;
 }
 
-.col-md, .span8{
-    width: 300px;
+.col-md, .span8 {
+    width: 50%;
 }
 .page-form {
     border: 1px solid #ddd;
