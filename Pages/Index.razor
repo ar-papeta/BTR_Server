@@ -1,11 +1,11 @@
 ﻿@page "/"
-
+@using BTR_Server.Protocol;
 <h1>MAIN PAGE</h1>
-
+<button type="button" class="btn btn-dark btn-danger" @onclick="ResetConnection">Reset Connections!</button>
 <div class="main-page-form">
-<div class="page-form">
-    
-    <h5>STABILIZATION</h5>
+    <div class="page-form">
+
+        <h5>STABILIZATION</h5>
         <div class="form-group">
             <label for="inputip">IP</label>
             <input type="number" class="form-control" id="inputip" aria-describedby="IpHelp" placeholder="Enter IP">
@@ -15,7 +15,7 @@
             <label for="inputport">Port</label>
             <input type="number" class="form-control" id="inputport" aria-describedby="PortHelp" placeholder="Enter Port">
         </div>
-       
+
         <div>
 
             <button type="submit" class="btn btn-primary">Check connect</button>
@@ -24,14 +24,14 @@
                 <label class="custom-control-label" for="defaultChecked2">Connected</label>
             </div>
         </div>
-    
 
 
-</div>
+
+    </div>
 
 
-<div class="page-form">
-    <h5>UTILITY</h5>
+    <div class="page-form">
+        <h5>UTILITY</h5>
         <div class="form-group">
             <label for="inputip2">IP</label>
             <input type="number" class="form-control" id="inputip2" aria-describedby="IpHelp" placeholder="Enter IP">
@@ -52,11 +52,11 @@
         </div>
 
 
-</div>
+    </div>
 
 
-<div class="page-form">
-    <h5>POWER</h5>
+    <div class="page-form">
+        <h5>POWER</h5>
         <div class="form-group">
             <label for="inputip3">IP</label>
             <input type="number" class="form-control" id="inputip3" aria-describedby="IpHelp" placeholder="Enter IP">
@@ -76,9 +76,9 @@
             </div>
         </div>
 
-</div>
-
     </div>
+
+</div>
 
 <div class="page-form">
     <h5>Pocked</h5>
@@ -99,7 +99,7 @@
 
         <button type="submit" class="btn btn-primary">Check</button>
         <div class="custom-control custom-checkbox">
-            
+
             <input type="checkbox" class="custom-control-input" id="defaultChecked5" checked>
             <label class="custom-control-label" for="defaultChecked5">Connected</label>
         </div>
@@ -112,3 +112,14 @@
 
 
 </div>
+
+@code{
+    void ResetConnection()
+    {
+        ProtocolAPI.StabClient = null;
+        ProtocolAPI.UtilityClient = null;
+        ProtocolAPI.PowerClient = null;
+        MyTCPClient.client = null;
+    }
+
+}

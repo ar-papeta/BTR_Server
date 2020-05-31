@@ -7,5 +7,24 @@ namespace BTR_Server.Data
 {
     public class UtilityData
     {
+        public float GPSx { get; set; }
+        public float GPSy { get; set; }
+        public float Yg { get; set; }
+        public float Pg { get; set; }
+        public float Rg { get; set; }
+        public float Eview { get; set; }
+        public float Ev { get; set; }
+        public float Eg { get; set; }
+        public float Patm { get; set; }
+        public float T { get; set; }
+        public float Sw { get; set; }
+        public float Dw { get; set; }
+        public float Focus { get; set; }
+        public float Bright { get; set; }
+        public float Contrast { get; set; }
+        public float Length_1 { get; set; }
+        public float Length_2 { get; set; }
+        public float Length_3 { get; set; }
+
     }
 }

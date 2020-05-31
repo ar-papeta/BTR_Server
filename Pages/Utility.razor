@@ -1,38 +1,39 @@
 ﻿@using System.Net.Sockets;
 @using System.Text;
 @using System;
-
+@using BTR_Server.Data;
+@using BTR_Server.Protocol;
 @page "/utility"
 
 <h1>UTILITY MODULE</h1>
 
 
-<button type="button" class="btn btn-dark btn-circle" id="controller_value">Отримання значень датчиків з контроллера</button> 
+<button type="button" class="btn btn-dark btn-circle" id="controller_value" @onclick="GetDataValue">Отримання значень датчиків з контроллера</button>
 <br />
-    <table>
-        <thead>
-            <tr>
-                <th>GPSx</th>
-                <th>GPSy</th>
-                <th>Yg</th>
-                <th>Pg</th>
-                <th>Rg</th>
-                <th>Eview</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td aria-label="GPSx">3415</td>
-                <td aria-label="GPSy">2216</td>
-                <td aria-label="Yg">51110</td>
-                <td aria-label="Pg">1246</td>
-                <td aria-label="Rg">5462</td>
-                <td aria-label="Eview">9876</td>
-                
-            </tr>
-        </tbody>
-    </table>
+<table>
+    <thead>
+        <tr>
+            <th>GPSx</th>
+            <th>GPSy</th>
+            <th>Yg</th>
+            <th>Pg</th>
+            <th>Rg</th>
+            <th>Eview</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td aria-label="GPSx">@utilityData.GPSx</td>
+            <td aria-label="GPSy">@utilityData.GPSy</td>
+            <td aria-label="Yg">@utilityData.Yg</td>
+            <td aria-label="Pg">@utilityData.Pg</td>
+            <td aria-label="Rg">@utilityData.Rg</td>
+            <td aria-label="Eview">@utilityData.Eview</td>
+
+        </tr>
+    </tbody>
+</table>
 
 <table>
     <thead>
@@ -47,12 +48,12 @@
     </thead>
     <tbody>
         <tr>
-            <td aria-label="Ev">5460</td>
-            <td aria-label="Eg">4566</td>
-            <td aria-label="Patm">2342</td>
-            <td aria-label="T">4566</td>
-            <td aria-label="Sw">5460</td>
-            <td aria-label="Dw">4746</td>
+            <td aria-label="Ev">@utilityData.Ev</td>
+            <td aria-label="Eg">@utilityData.Eg</td>
+            <td aria-label="Patm">@utilityData.Patm</td>
+            <td aria-label="T">@utilityData.T</td>
+            <td aria-label="Sw">@utilityData.Sw</td>
+            <td aria-label="Dw">@utilityData.Dw</td>
         </tr>
     </tbody>
 </table>
@@ -62,22 +63,22 @@
 <div class="three_cls">
 
     <div class="two_cls">
-            
+
         <div class="distance_req">
-            <button type="button" class="btn btn-dark btn-circle" id="distance_request">Запит на отимання відстані </button>
+            <button type="button" class="btn btn-dark btn-circle" id="distance_request" @onclick="GetDalnomerData">Запит на отимання відстані </button>
             <table>
-      <tr>
-                <th scope="col">Значення 1</th>
-                <th scope="col">Значення 2</th>
-                <th scope="col">Значення 3</th>
-            </tr>
-                </table>
+                <tr>
+                    <th scope="col">@utilityData.Length_1</th>
+                    <th scope="col">@utilityData.Length_2</th>
+                    <th scope="col">@utilityData.Length_3</th>
+                </tr>
+            </table>
         </div>
+    </div>
 
+    <div class="two_cls">
 
-
-
-        <h5> Налаштування зображення тепловізора </h5>
+        <h5 class="cls5"> Налаштування зображення тепловізора </h5>
 
         <table class="table">
             <thead>
@@ -91,16 +92,16 @@
             <tbody>
                 <tr>
 
-                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_plus">+</button></td>
-                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_plus">+</button></td>
-                    <td> <button type="button" class="btn btn-dark btn-circle" id="contrast_plus">+</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_plus" @onclick="FocusPlusPress" >+</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_plus" @onclick="BrightPlusPress" >+</button></td>
+                    <td> <button type="button" class="btn btn-dark btn-circle" id="contrast_plus" @onclick="ContrastPlusPress" >+</button></td>
 
                 </tr>
                 <tr>
 
-                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_minus">-</button></td>
-                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_minus">-</button></td>
-                    <td><button type="button" class="btn btn-dark btn-circle" id="contrast_minus">-</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="focus_minus" @onclick="FocusMinusPress">-</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="bright_minus" @onclick="BrightMinusPress">-</button></td>
+                    <td><button type="button" class="btn btn-dark btn-circle" id="contrast_minus" @onclick="ContrastMinusPress">-</button></td>
 
                 </tr>
 
@@ -109,10 +110,10 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-dark btn-circle" id="calib">calib</button>
-        <button type="button" class="btn btn-dark btn-circle" id="invertion">invertion</button>
-        <button type="button" class="btn btn-dark btn-circle" id="cross">cross</button>
-        <button type="button" class="btn btn-dark btn-circle" id="save_setup">save setup</button>
+        <button type="button" class="btn btn-dark btn-circle" id="calib" @onclick="CalibPress">calib</button>
+        <button type="button" class="btn btn-dark btn-circle" id="invertion" @onclick="InvertionPress" >invertion</button>
+        <button type="button" class="btn btn-dark btn-circle" id="cross" @onclick="CrossPress" >cross</button>
+        <button type="button" class="btn btn-dark btn-circle" id="save_setup" @onclick="SaveSetupPress" >save setup</button>
 
     </div>
 
@@ -142,28 +143,124 @@
                 <circle cx="50" cy="50" r="50" fill="url(#grad1)" />
                 <circle cx="50" cy="50" r="47" fill="url(#grad2)" stroke="black" stroke-width="1.5px" />
                 <circle cx="50" cy="50" r="44" fill="url(#grad3)" />
-                <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px" onclick="alert('CENTER');" />
+                <circle cx="50" cy="50" r="20" fill="#cccccc" stroke="black" stroke-width="1px"  @onclick="EnterPress"/>
 
 
 
 
-                <path d="M50,9 60,26 40,26Z" fill="rgba(0,0,0,0.9)" onclick="alert('UP');" />
-                <path d="M50,91 60,74 40,74Z" fill="rgba(0,0,0,0.9)" onclick="alert('DOWN');" />
-                <path d="M9,50 26,60 26,40Z" fill="rgba(0,0,0,0.9)" onclick="alert('LEFT');" />
-                <path d="M91,50 74,60 74,40Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
+                <path d="M50,9 60,26 40,26Z" fill="rgba(0,0,0,0.9)" @onclick="UpPress"  />
+                <path d="M50,91 60,74 40,74Z" fill="rgba(0,0,0,0.9)" @onclick="DownPress" />
+                <path d="M9,50 26,60 26,40Z" fill="rgba(0,0,0,0.9)" @onclick="LeftPress"  />
+                <path d="M91,50 74,60 74,40Z" fill="rgba(0,0,0,0.9)" @onclick="RightPress"  />
             </svg>
         </div>
         <div class="2buttons">
             Вибір камери
-            <button class="camera_n"> n</button>
-            <button class="camera_w"> w </button>
+            <button class="camera_n" @onclick="CameraN" > n</button>
+            <button class="camera_w"@onclick="CameraW"> w </button>
         </div>
     </div>
 </div>
-    
+
 
 
 @code {
+
+    private ProtocolAPI protocol = new ProtocolAPI();
+    private UtilityData utilityData = new UtilityData();
+
+
+    void GetDataValue()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x1b);
+    }
+    void GetDalnomerData()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x3b);
+    }
+    void CameraW()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x1A, 0x01);
+    }
+    void CameraN()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x1A, 0x01);
+    }
+
+    void FocusPlusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x1A, 0x01);
+    }
+
+    void BrightPlusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x3A, 0x01);
+    }
+
+    void ContrastPlusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x5A, 0x01);
+    }
+
+    void FocusMinusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x2A, 0x01);
+    }
+
+    void BrightMinusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x4A, 0x01);
+    }
+
+    void ContrastMinusPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x6A, 0x01);
+    }
+
+    void CalibPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x8A, 0x01);
+    }
+
+    void InvertionPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x9A, 0x01);
+    }
+
+    void CrossPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0xAA, 0x01);
+    }
+
+    void SaveSetupPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0xBA, 0x01);
+    }
+
+    void EnterPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x2A, 0x01);
+    }
+
+    void UpPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x3A, 0x01);
+    }
+
+    void DownPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x4A, 0x01);
+    }
+
+    void LeftPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x5A, 0x01);
+    }
+
+    void RightPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x6A, 0x01);
+    }
 
 
 }

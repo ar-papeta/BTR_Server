@@ -6,7 +6,7 @@
 
 @page "/stabilization"
 
-<h1>STABILIZATION MODULE </h1>
+<h1 >STABILIZATION MODULE </h1>
 
 <form>
     <h5>Режим керування</h5>
@@ -60,7 +60,7 @@
 
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="auto_fire" name="fire" @onclick="auto_fire" >
+        <input type="radio" class="custom-control-input" id="auto_fire" name="fire" @onclick="auto_fire">
         <label class="custom-control-label" for="auto_fire">Автомат</label>
     </div>
 
@@ -137,7 +137,7 @@
         <label for="validationDefault03">Балістична поправка вертикаль</label>
         <input type="number" class="form-control" id="validationDefault03" @bind="StabData.CorrectionVertData">
     </div>
-    
+
     <div class="col-md-3 mb-4">
 
         <label for="validationDefault04">Балістична поправка горизонталь</label>
@@ -152,6 +152,10 @@
 @code {
     ProtocolAPI protocol = new ProtocolAPI();
     StabData StabData = new Data.StabData();
+
+
+
+
 
     //Motor modes
     private int FULL_MANUAL_MODE = 1;
@@ -191,8 +195,10 @@
 
     void motorMode1()
     {
+        
         StabData.MotorControlMode = FULL_MANUAL_MODE;
         protocol.UpdateAndSendPacket(StabData);
+
     }
 
     void motorMode2()
@@ -211,8 +217,10 @@
 
     void cameraMode1()
     {
+        
         StabData.CameraViewMode = WIDE_CAMERA;
         protocol.UpdateAndSendPacket(StabData);
+
     }
 
     void cameraMode2()
@@ -259,8 +267,11 @@
     }
     //@document.getElementById('elem1').value;
 
-    void balistic(){
-        protocol.UpdateAndSendPacket(StabData); 
+    void balistic()
+    {
+        protocol.UpdateAndSendPacket(StabData);
     }
+
+
 
 }

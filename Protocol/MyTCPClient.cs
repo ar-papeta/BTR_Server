@@ -9,37 +9,57 @@ namespace BTR_Server.Protocol
 {
     public class MyTCPClient
     {
-
-        private String server;
-        private int port;
-        //byte[] requestData = { 0x7e, 0x1, 0x2 };
-        //byte[] responceData = new byte[255];
-        
+        public static TcpClient client = null;
+        public NetworkStream stream;
         public MyTCPClient(String server, int port)
         {
-            this.server = server;
-            this.port = port;
+            
+            try
+            {
+                if(client == null)
+                {
+                    client = new TcpClient();
+                    client.Connect(server, port);
+                    //client.ConnectAsync(server, port);
+                    stream = client.GetStream();
+
+                }
+                
+
+
+            }
+            catch (Exception e) {
+                Console.WriteLine(e.Message);           
+            }
+
         }
 
-        public byte[] TCPrequest(byte[] requestData, int dataLength)
+        public bool IsTCPInit(NetworkStream _stream)
         {
+            return (_stream != null) ? true : false;
+        }
+
+        public byte[] TCPrequest(byte[] requestData, int dataLength, out int bytes)
+        {
+            bytes = 0;
             byte[] responceData = new byte[255];
             try
             {
-                TcpClient client = new TcpClient();
-                client.Connect(server, port);
-                NetworkStream stream = client.GetStream();
-
-
-                stream.Write(requestData, 0, dataLength);
-                while (stream.DataAvailable)
+                
+                if (stream != null )
                 {
-                    int bytes = stream.Read(responceData, 0, responceData.Length);
+                    stream.Write(requestData, 0, dataLength);
+
+                    while (stream.DataAvailable)
+                    {
+                        bytes = stream.Read(responceData, 0, responceData.Length);
+                    }
+                    // пока данные есть в потоке
+                    // Закрываем потоки
+                    //stream.Close();
+                    //client.Close();
                 }
-                 // пока данные есть в потоке
-                                              // Закрываем потоки
-                stream.Close();
-                client.Close();
+
                 return responceData;
             }
             catch (SocketException e)
