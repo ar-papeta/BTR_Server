@@ -7,9 +7,9 @@ namespace BTR_Server.Data
 {
     public class UtilityData
     {
-        public float GPSx { get; set; }
-        public float GPSy { get; set; }
-        public float Yg { get; set; }
+        public String GPSx { get; set; }
+        public String GPSy { get; set; }
+        public Int32 Yg { get; set; }
         public float Pg { get; set; }
         public float Rg { get; set; }
         public float Eview { get; set; }

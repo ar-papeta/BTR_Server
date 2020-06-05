@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BTR_Server.Protocol
@@ -22,7 +23,6 @@ namespace BTR_Server.Protocol
                     client.Connect(server, port);
                     //client.ConnectAsync(server, port);
                     stream = client.GetStream();
-
                 }
                 
 
@@ -42,17 +42,17 @@ namespace BTR_Server.Protocol
         public byte[] TCPrequest(byte[] requestData, int dataLength, out int bytes)
         {
             bytes = 0;
-            byte[] responceData = new byte[255];
+            byte[] responseData = new byte[255];
             try
             {
                 
                 if (stream != null )
                 {
                     stream.Write(requestData, 0, dataLength);
-
+                    Thread.Sleep(10);
                     while (stream.DataAvailable)
                     {
-                        bytes = stream.Read(responceData, 0, responceData.Length);
+                        bytes = stream.Read(responseData, 0, responseData.Length);
                     }
                     // пока данные есть в потоке
                     // Закрываем потоки
@@ -60,17 +60,17 @@ namespace BTR_Server.Protocol
                     //client.Close();
                 }
 
-                return responceData;
+                return responseData;
             }
             catch (SocketException e)
             {
                 Console.WriteLine("SocketException: {0}", e);
-                return responceData;
+                return responseData;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Exception: {0}", e.Message);
-                return responceData;
+                return responseData;
             }
 
         }

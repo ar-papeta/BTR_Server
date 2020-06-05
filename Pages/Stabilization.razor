@@ -12,19 +12,19 @@
     <h5>Режим керування</h5>
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="motorMode1" name="motorMode" @onclick="motorMode1">
+        <input type="radio" checked="checked" class="custom-control-input" id="motorMode1" name="motorMode" @onclick="motorMode1">
         <label class="custom-control-label" for="motorMode1">Ручний режим</label>
     </div>
 
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="motorMode2" name="motorMode">
+        <input type="radio" class="custom-control-input" id="motorMode2" name="motorMode" @onclick="motorMode2">
         <label class="custom-control-label" for="motorMode2">Режим стабілізація</label>
     </div>
 
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="motorMode3" name="motorMode">
+        <input type="radio" class="custom-control-input" id="motorMode3" name="motorMode" @onclick="motorMode3">
         <label class="custom-control-label" for="motorMode3">Автоматичний режим</label>
     </div>
 </form>
@@ -33,7 +33,7 @@
     <h5>Режим камери</h5>
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="cameraMode1" name="cameraMode" @onclick="cameraMode1">
+        <input type="radio" checked="checked" class="custom-control-input" id="cameraMode1" name="cameraMode" @onclick="cameraMode1">
         <label class="custom-control-label" for="cameraMode1">Широка камера</label>
     </div>
 
@@ -54,7 +54,7 @@
     <h5>Режим стрільби</h5>
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="single_fire" name="fire" @onclick="single_fire">
+        <input type="radio" checked="checked" class="custom-control-input" id="single_fire" name="fire" @onclick="single_fire">
         <label class="custom-control-label" for="single_fire">Одиночні</label>
     </div>
 
@@ -76,7 +76,7 @@
     <h5>Тип зброї</h5>
 
     <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" class="custom-control-input" id="garmata" name="gun" @onclick="garmata">
+        <input type="radio" checked="checked" class="custom-control-input" id="garmata" name="gun" @onclick="garmata">
         <label class="custom-control-label" for="garmata">Гармата</label>
     </div>
 
@@ -89,8 +89,8 @@
 </form>
 <br />
 <form>
-    <button type="button" class="btn btn-dark btn-circle" id="reset">Обнулення датчиків</button>
-    <button type="button" class="btn btn-dark btn-circle" id="engine">Мотори в 0</button>
+    <button type="button" class="btn btn-dark btn-circle" id="reset" @onclick="ResetSensors">Обнулення датчиків</button>
+    <button type="button" class="btn btn-dark btn-circle" id="engine" @onclick="ResetMotors">Мотори в 0</button>
 </form>
 
 <div class="container">
@@ -191,11 +191,27 @@
     private long WIDE_CAMERA = 1000000;
     private long NARROW_CAMERA = 2000000;
     private long THERMALVISOR_CAMERA = 3000000;
+    void ResetSensors()
+    {
+        StabData.ResetGyroscopesStatus = ZERO_SENSOR_ON;
+        protocol.UpdateAndSendPacket(StabData);
+        System.Threading.Thread.Sleep(100);
+        StabData.ResetGyroscopesStatus = ZERO_SENSOR_OFF;
+        protocol.UpdateAndSendPacket(StabData);
+    }
 
+    void ResetMotors()
+    {
+        StabData.ResetMotorStatus = ZERO_MOTOR_ON;
+        protocol.UpdateAndSendPacket(StabData);
+        System.Threading.Thread.Sleep(100);
+        StabData.ResetMotorStatus = ZERO_MOTOR_OFF;
+        protocol.UpdateAndSendPacket(StabData);
+    }
 
     void motorMode1()
     {
-        
+
         StabData.MotorControlMode = FULL_MANUAL_MODE;
         protocol.UpdateAndSendPacket(StabData);
 
@@ -217,7 +233,7 @@
 
     void cameraMode1()
     {
-        
+
         StabData.CameraViewMode = WIDE_CAMERA;
         protocol.UpdateAndSendPacket(StabData);
 
@@ -265,7 +281,6 @@
         StabData.WeaponType = GRENADE_LAUNCHER;
         protocol.UpdateAndSendPacket(StabData);
     }
-    //@document.getElementById('elem1').value;
 
     void balistic()
     {

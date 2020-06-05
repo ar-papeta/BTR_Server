@@ -16,7 +16,7 @@ namespace BTR_Server.Protocol
         public byte[] MakeCRC16(byte[] uk, int length)
         {
             ushort ocrc = 0x0000;
-            for(int i=0; i < length; i++)
+            for(int i=1; i < length; i++)
             {
                 ocrc = (ushort)UPDATECRC16(uk[i], ocrc);
             }

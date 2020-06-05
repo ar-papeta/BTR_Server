@@ -1,16 +1,16 @@
 ﻿@page "/power"
+@using BTR_Server.Data;
+@using BTR_Server.Protocol;
 
-
-@using BTR_Server.Data
 
 
 <h1>POWER CONTROL MODULE</h1>
 
 
 <div class="em_status">
-    <h5 class="cls5">Електромагнітні клапани</h5>
+    <h3 class="cls5">Електромагнітні клапани</h3>
     <form name="search">
-        <button type="button" class="btn btn-dark btn-circle" id="power_main_button" onclick="sendForm();">Накат</button>
+        <button type="button" class="btn btn-dark btn-circle" id="power_main_button" @onclick="CheckEMStates">Перевірка стану електромагнітів</button>
     </form>
 </div>
 
@@ -27,19 +27,19 @@
     <tbody>
         <tr>
 
-            <td><span class="badge badge-pill badge-success">On</span></td>
-            <td><span class="badge badge-pill badge-danger">OFF</span></td>
-            <td><span class="badge badge-pill badge-success">On</span></td>
-            <td<span class="badge badge-pill badge-danger">OFF</span></td>
+            <td><span class="badge badge-pill badge-dark">@powerData.EM_1</span></td>
+            <td><span class="badge badge-pill badge-dark">@powerData.EM_2</span></td>
+            <td><span class="badge badge-pill badge-dark">@powerData.EM_3</span></td>
+            <td<span class="badge badge-pill badge-dark">@powerData.EM_4</span></td>
 
         </tr>
 
         <tr>
 
-            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_1">press</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_2">press</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_3">press</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_4">press</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_1" @onclick="EM_1_SET">on/off</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_2" @onclick="EM_2_SET">on/off</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_3" @onclick="EM_3_SET">on/off</button></td>
+            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_4" @onclick="EM_4_SET">on/off</button></td>
 
         </tr>
 
@@ -58,19 +58,51 @@
     <tbody>
         <tr>
 
-            <td><button type="button" class="btn btn-dark btn-circle" id="vidkat">Відкат</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="pidtyag">Підтяг верхньої стрічки</button></td>
-            <td aria-label="Ev">5460</td>
+
+            <td>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="vidkat1" name="vidkat/nakat">
+                    <label class="custom-control-label" for="vidkat1">1</label>
+                </div>
+            </td>
+            
+            <td>
+
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="vidkat2" name="vidkat/nakat">
+                    <label class="custom-control-label" for="vidkat2">2</label>
+                </div>
+            </td>
+            <td aria-label="Ev">@powerData.SupplyType</td>
 
         </tr>
         <tr>
 
-            <td><button type="button" class="btn btn-dark btn-circle" id="nakat">Накат</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="pidtyag_up">Підтяг нижньої стрічки</button></td>
-            <td><button type="button" class="btn btn-dark btn-circle" id="peremikannya">Перемиканяня</button></td>
+            <td>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="vidkat3" name="vidkat/nakat">
+                    <label class="custom-control-label" for="vidkat3">3</label>
+                </div>
+            </td>
+            <td>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="vidkat4" name="vidkat/nakat">
+                    <label class="custom-control-label" for="vidkat4">4</label>
+                </div>
+            </td>
+
+            <td><button type="button" class="btn btn-dark btn-circle" id="check_button_4">on/off</button></td>
 
         </tr>
 
+        <tr>
+            <td>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="vidkat10" name="vidkat/nakat">
+                    <label class="custom-control-label" for="vidkat10">10</label>
+                </div>
+            </td>
+        </tr>
 
 
     </tbody>
@@ -78,6 +110,96 @@
 
 
 @code {
+    private ProtocolAPI protocol = new ProtocolAPI();
+    private PowerData powerData = new PowerData();
+
+    void EM_1_SET()
+    {
+        if (powerData.EM_1 == 0x01)
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x01, 0x02);
+        }
+        else
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x01, 0x01);
+        }
+    }
+
+    void EM_2_SET()
+    {
+        if (powerData.EM_2 == 0x01)
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x02, 0x02);
+        }
+        else
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x01, 0x01);
+        }
+    }
+
+    void EM_3_SET()
+    {
+        if (powerData.EM_3 == 0x01)
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x03, 0x02);
+        }
+        else
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x01, 0x01);
+        }
+    }
+
+    void EM_4_SET()
+    {
+        if (powerData.EM_4 == 0x01)
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x04, 0x02);
+        }
+        else
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x30, 0x04, 0x01);
+        }
+    }
+
+    void CheckEMStates()
+    {
+        protocol.PowerDataProcesing(ref powerData, 0x31, 0x00, 0x00);
+    }
+
+    void vidkat()
+    {
+        protocol.PowerDataProcesing(ref powerData, 0x32, 0x01, 0x01);
+    }
+
+    void nakat()
+    {
+        protocol.PowerDataProcesing(ref powerData, 0x32, 0x01, 0x02);
+    }
+
+    void UpFeed()
+    {
+        protocol.PowerDataProcesing(ref powerData, 0x35, 0x01, 0x01);
+    }
+
+    void DownFeed()
+    {
+        protocol.PowerDataProcesing(ref powerData, 0x35, 0x01, 0x01);
+    }
+
+    void ChangeSupply()
+    {
+        if(powerData.SupplyType == 0x01)
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x02);
+        }
+        else
+        {
+            protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x01);
+        }
+    }
 
 }
+
+
+
 
