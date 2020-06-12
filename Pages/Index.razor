@@ -1,7 +1,9 @@
 ﻿@page "/"
 @using BTR_Server.Protocol;
+@using BTR_Server.SpeedLinkJoystick;
 <h1>MAIN PAGE</h1>
 <button type="button" class="btn btn-dark btn-danger" @onclick="ResetConnection">Reset Connections!</button>
+<button type="button" class="btn btn-dark btn-danger" @onclick="InitJoy">Init joystick</button>
 <div class="main-page-form">
     <div class="page-form">
 
@@ -114,12 +116,22 @@
 </div>
 
 @code{
+
+    JoystickAPI Joystick = new JoystickAPI();
+
+    void InitJoy()
+    {
+        Joystick.JoystickInit();
+    }
+
+
     void ResetConnection()
     {
         ProtocolAPI.StabClient = null;
         ProtocolAPI.UtilityClient = null;
         ProtocolAPI.PowerClient = null;
         MyTCPClient.client = null;
+
     }
 
 }

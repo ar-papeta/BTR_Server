@@ -21,8 +21,9 @@ namespace BTR_Server.Protocol
                 {
                     client = new TcpClient();
                     client.Connect(server, port);
-                    //client.ConnectAsync(server, port);
+                    
                     stream = client.GetStream();
+                      
                 }
                 
 
@@ -34,10 +35,7 @@ namespace BTR_Server.Protocol
 
         }
 
-        public bool IsTCPInit(NetworkStream _stream)
-        {
-            return (_stream != null) ? true : false;
-        }
+
 
         public byte[] TCPrequest(byte[] requestData, int dataLength, out int bytes)
         {

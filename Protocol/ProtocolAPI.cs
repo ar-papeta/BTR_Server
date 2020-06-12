@@ -13,7 +13,7 @@ namespace BTR_Server.Protocol
         private const string UtilityServer = "192.168.1.200";
         private const string PowerServer = "192.168.1.201";
 
-        private List<float> StabFloats = new List<float>();
+        
         private byte[] ResponcePacket = new byte[255];
         private byte[] StabPacket = new byte [32];
         private byte[] PowerPacket = new byte[255];
@@ -31,11 +31,12 @@ namespace BTR_Server.Protocol
         {
             if (StabClient == null)
             {
-                StabClient = new MyTCPClient(StabServer, Port);
+                //StabClient = new MyTCPClient(StabServer, Port);
+                
             }
             if (UtilityClient == null)
             {
-                UtilityClient = new MyTCPClient(UtilityServer, Port);
+                //UtilityClient = new MyTCPClient(UtilityServer, Port);
             }
             if (PowerClient == null)
             {
@@ -45,14 +46,13 @@ namespace BTR_Server.Protocol
 
         }
         
-        public void UpdateAndSendPacket(Object DataInstance)
+        public void UpdateAndSendPacket(StabData data)
         {
             
-            if (DataInstance is StabData)
-            {
-                StabData data = DataInstance as StabData;
-                  //перенести  
+           
                 
+                  //перенести  
+              List<float> StabFloats = new List<float>();
                 data.ServiceInfo_1 = 0;
                 data.ServiceInfo_2 = 0;
                 
@@ -67,14 +67,13 @@ namespace BTR_Server.Protocol
                 data.ServiceInfo_2 += (data.ResetMotorStatus != 0 ? data.ResetMotorStatus : 1);
 
                 StabFloats.Add(data.EncoderVertData);
-                StabFloats.Add(data.EncoderVertData);
+                StabFloats.Add(data.EncoderHorData);
                 StabFloats.Add(data.TrackingVertData);
                 StabFloats.Add(data.TrackingHorData);
                 StabFloats.Add(data.CorrectionVertData);
                 StabFloats.Add(data.CorrectionHorData);
                 StabFloats.Add(data.ServiceInfo_1);
                 StabFloats.Add(data.ServiceInfo_2);
-                
                 int i = 0;
                 foreach(float f in StabFloats)
                 {
@@ -88,20 +87,7 @@ namespace BTR_Server.Protocol
                 }
                 int dataLength = i;
                 StabFloats.Clear();
-                ResponcePacket = StabClient.TCPrequest(BuildPacket(0x01, 0x11, (byte)dataLength, 0x2b, StabPacket, out dataLength), dataLength, out int bytesCount);
-
-            }
-            else if (DataInstance is UtilityData )
-            {
-                UtilityData data = DataInstance as UtilityData;
-                MyTCPClient StabClient = new MyTCPClient(UtilityServer, Port);
-
-            }
-            else if (DataInstance is PowerData)
-            {
-                PowerData data = DataInstance as PowerData;
-                //MyTCPClient StabClient = new MyTCPClient(StabServer, Port);
-            }
+                StabClient.TCPrequest(BuildPacket(0x01, 0x11, (byte)dataLength, 0x2b, StabPacket, out dataLength), dataLength, out int bytesCount);
         }
         public  void UtilityDataProcesing(ref UtilityData dataInstance, byte CMD, byte eventAdr=0x00, byte _event = 0x00)
         {
