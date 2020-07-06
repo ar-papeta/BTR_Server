@@ -48,7 +48,7 @@ namespace BTR_Server.SpeedLinkJoystick
             joystick.Acquire();
             TimerCallback tm = new TimerCallback(Timer_tick);
             
-            Timer timer = new Timer(tm, null, 0, 20);
+            Timer timer = new Timer(tm, null, 0, 50);
             
 
         }

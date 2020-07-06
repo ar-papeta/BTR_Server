@@ -113,7 +113,7 @@
         <button type="button" class="btn btn-dark btn-circle" id="calib" @onclick="CalibPress">calib</button>
         <button type="button" class="btn btn-dark btn-circle" id="invertion" @onclick="InvertionPress">invertion</button>
         <button type="button" class="btn btn-dark btn-circle" id="cross" @onclick="CrossPress">cross</button>
-        <button type="button" class="btn btn-dark btn-circle" id="zoom">zoom</button>
+        <button type="button" class="btn btn-dark btn-circle" id="zoom" @onclick="ZoomPress">zoom</button>
         <button type="button" class="btn btn-dark btn-circle" id="save_setup" @onclick="SaveSetupPress">save setup</button>
 
     </div>
@@ -173,95 +173,129 @@
 
     void GetDataValue()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x1b);
+        protocol.UtilityDataProcesing(ref utilityData, 0x3b);
     }
     void GetDalnomerData()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x3b);
+        protocol.UtilityDataProcesing(ref utilityData, 0x1b);
     }
-    void CameraW()
-    {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x1A, 0x01);
-    }
-    void CameraN()
-    {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x1A, 0x01);
-    }
+   
 
     void FocusPlusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x1A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x1A, 0x01);
     }
 
     void BrightPlusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x3A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x3A, 0x01);
     }
 
     void ContrastPlusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x5A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x5A, 0x01);
     }
 
     void FocusMinusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x2A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x2A, 0x01);
     }
 
     void BrightMinusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x4A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x4A, 0x01);
     }
 
     void ContrastMinusPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x6A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x6A, 0x01);
     }
 
     void CalibPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x8A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x8A, 0x01);
     }
 
     void InvertionPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x9A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x9A, 0x01);
     }
 
     void CrossPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0xAA, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0xAA, 0x01);
     }
 
     void SaveSetupPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0xBA, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0xBA, 0x01);
+    }
+
+    void ZoomPress()
+    {
+        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x7A, 0x01);
+    }
+
+
+
+
+
+
+
+    bool isStateW = false;
+    bool isStateN = false;
+    void CameraW()
+    {
+        if(!isStateW){
+            protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x01, 0x01);
+            isStateW = true;    
+        }
+           
+        else {
+            protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x03, 0x01);
+            isStateW = false;
+        }
+
+    }
+    void CameraN()
+    {
+        if(!isStateN){
+            protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x01, 0x02);
+            isStateN = true;    
+        }
+           
+        else {
+            protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x03, 0x02);
+            isStateN = false;
+        }
     }
 
     void EnterPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x2A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x2A, 0x01);
     }
 
     void UpPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x3A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x3A, 0x01);
     }
 
     void DownPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x4A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x4A, 0x01);
     }
 
     void LeftPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x5A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x5A, 0x01);
     }
 
     void RightPress()
     {
-        protocol.UtilityDataProcesing(ref utilityData, 0x5b, 0x6A, 0x01);
+        protocol.UtilityDataProcesing(ref utilityData, 0x4b, 0x6A, 0x01);
     }
+
+
 
 
 }

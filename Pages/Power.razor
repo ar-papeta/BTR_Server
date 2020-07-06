@@ -17,10 +17,10 @@
 <table class="table">
     <thead>
         <tr>
-            <th id="em_1" value=""> EM1</th>
-            <th id="em_2" value="">EM2</th>
-            <th id="em_3" value="">EM3</th>
-            <th id="em_4" value="">EM4</th>
+            <th id="em_1" value="">EM GR</th>
+            <th id="em_2" value="">EM VR</th>
+            <th id="em_3" value="">EM GP</th>
+            <th id="em_4" value="">EM VP</th>
 
         </tr>
     </thead>
@@ -30,7 +30,7 @@
             <td><span class="badge badge-pill badge-dark">@powerData.EM_1</span></td>
             <td><span class="badge badge-pill badge-dark">@powerData.EM_2</span></td>
             <td><span class="badge badge-pill badge-dark">@powerData.EM_3</span></td>
-            <td<span class="badge badge-pill badge-dark">@powerData.EM_4</span></td>
+            <td><span class="badge badge-pill badge-dark">@powerData.EM_4</span></td>
 
         </tr>
 
@@ -61,16 +61,14 @@
 
             <td>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="vidkat1" name="vidkat/nakat">
-                    <label class="custom-control-label" for="vidkat1">1</label>
+                    <button type="button" class="btn btn-dark btn-circle" id="otkat_button" @onclick="vidkat">Відкат</button>
                 </div>
             </td>
-            
+
             <td>
 
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="vidkat2" name="vidkat/nakat">
-                    <label class="custom-control-label" for="vidkat2">2</label>
+                    <button type="button" class="btn btn-dark btn-circle" id="pidt_button" @onclick="UpDownFeed">Підтяг</button>
                 </div>
             </td>
             <td aria-label="Ev">@powerData.SupplyType</td>
@@ -80,38 +78,28 @@
 
             <td>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="vidkat3" name="vidkat/nakat">
-                    <label class="custom-control-label" for="vidkat3">3</label>
+                    <button type="button" class="btn btn-dark btn-circle" id="nakat_button" @onclick="nakat">Накат</button>
                 </div>
             </td>
             <td>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="vidkat4" name="vidkat/nakat">
-                    <label class="custom-control-label" for="vidkat4">4</label>
+                   
                 </div>
             </td>
-   
-        
+
+
 
 
             <td>
-                <button type="button" class="btn btn-dark btn-circle" id="check_button_4">on/off</button>
+                <button type="button" class="btn btn-dark btn-circle" id="check_button_4" @onclick="ChangeSupply">on/off</button>
                 <span class="badge badge-pill badge-dark">@powerData.EM_1</span>
             </td>
-            
-        
-    
+
+
+
 
         </tr>
 
-        <tr>
-            <td>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="vidkat10" name="vidkat/nakat">
-                    <label class="custom-control-label" for="vidkat10">10</label>
-                </div>
-            </td>
-        </tr>
 
 
     </tbody>
@@ -193,25 +181,23 @@
         protocol.PowerDataProcesing(ref powerData, 0x32, 0x01, 0x02);
     }
 
-    void UpFeed()
+    void UpDownFeed()
     {
         protocol.PowerDataProcesing(ref powerData, 0x35, 0x01, 0x01);
     }
 
-    void DownFeed()
-    {
-        protocol.PowerDataProcesing(ref powerData, 0x35, 0x01, 0x01);
-    }
-
+    bool b = false;
     void ChangeSupply()
     {
         if(powerData.SupplyType == 0x01)
         {
             protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x02);
+            //powerData.SupplyType = 0x02;
         }
         else
         {
             protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x01);
+            //powerData.SupplyType = 0x01;
         }
     }
 

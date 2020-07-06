@@ -127,8 +127,8 @@
             <path d="M91,50 74,60 74,40Z" fill="rgba(0,0,0,0.9)" onclick="alert('RIGHT');" />
         </svg>
     </div>
-    <button type="button" class="btn btn-dark btn-circle" id="fire">Вистріл1</button>
-    <button type="button" class="btn btn-dark btn-circle" id="fire2">Вистріл2</button>
+    <button type="button" class="btn btn-dark btn-circle" id="fire" @onclick="shoot1" >Вистріл1</button>
+    <button type="button" class="btn btn-dark btn-circle" id="fire2"  @onclick="shoot2">Вистріл2</button>
 </div>
 
 
@@ -284,6 +284,24 @@
 
     void balistic()
     {
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void shoot1()
+    {
+        StabData.ShotStatus = SHOOT_ON;
+        protocol.UpdateAndSendPacket(StabData);
+        System.Threading.Thread.Sleep(100);
+        StabData.ShotStatus = SHOOT_OFF;
+        protocol.UpdateAndSendPacket(StabData);
+    }
+
+    void shoot2()
+    {
+        StabData.ShotgunShotStatus = SHOTGUN_SHOOT_ON;
+        protocol.UpdateAndSendPacket(StabData);
+        System.Threading.Thread.Sleep(100);
+        StabData.ShotgunShotStatus = SHOTGUN_SHOOT_OFF;
         protocol.UpdateAndSendPacket(StabData);
     }
 

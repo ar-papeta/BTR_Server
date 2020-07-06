@@ -8,10 +8,10 @@ namespace BTR_Server.Protocol
 {
     public class ProtocolAPI
     {
-        private const int Port = 12786;
+        private const int Port = 12777;
         private const string StabServer = "192.168.1.202";
-        private const string UtilityServer = "192.168.1.200";
-        private const string PowerServer = "192.168.1.201";
+        private const string UtilityServer = "192.168.1.201";
+        private const string PowerServer = "192.168.1.200";
 
         
         private byte[] ResponcePacket = new byte[255];
@@ -31,16 +31,16 @@ namespace BTR_Server.Protocol
         {
             if (StabClient == null)
             {
-                //StabClient = new MyTCPClient(StabServer, Port);
+              //StabClient = new MyTCPClient(StabServer, Port);
                 
             }
             if (UtilityClient == null)
             {
-                //UtilityClient = new MyTCPClient(UtilityServer, Port);
+               //UtilityClient = new MyTCPClient(UtilityServer, Port);
             }
             if (PowerClient == null)
             {
-                PowerClient = new MyTCPClient(PowerServer, Port);
+              //PowerClient = new MyTCPClient(PowerServer, Port);
             }
 
 
@@ -51,7 +51,7 @@ namespace BTR_Server.Protocol
             
            
                 
-                  //перенести  
+                  
               List<float> StabFloats = new List<float>();
                 data.ServiceInfo_1 = 0;
                 data.ServiceInfo_2 = 0;
@@ -93,13 +93,13 @@ namespace BTR_Server.Protocol
         {
             
             
-            if(CMD == 0x1b)
+            if(CMD == 0x3b)
             {
                 int dataLength;
                 byte[] _UtilityDataBytes = new byte[64];
                 float[] dataFloats = new float[12];
                 int _bytes;
-                _UtilityDataBytes = UtilityClient.TCPrequest(BuildPacket(0x01, 0x11, 0, 0x1b, StabPacket, out dataLength), dataLength, out _bytes);
+                _UtilityDataBytes = UtilityClient.TCPrequest(BuildPacket(0x01, 0x11, 0, 0x3b, StabPacket, out dataLength), dataLength, out _bytes);
                 if (_bytes > 7)//if(_bytes == 55) => 7 + 12*4
                 {
                     int index = 0;
@@ -141,7 +141,7 @@ namespace BTR_Server.Protocol
                      */
                 }                    
             }
-            else if(CMD == 0x3b)
+            else if(CMD == 0x1b)
             {
                 int dataLength;
                 float[] dataFloats = new float[3];
@@ -158,8 +158,17 @@ namespace BTR_Server.Protocol
             }
             else if(CMD == 0x4b)
             {
-                byte[] _dataBytes = {eventAdr, _event };
-                UtilityClient.TCPrequest(BuildPacket(0x01, 0x11, 2, CMD, _dataBytes, out int dataLength), dataLength, out int _bytes);
+                if(eventAdr > 0x04)
+                {
+                    byte[] _dataBytes = { 0x02, 0x01, eventAdr, _event };
+                    UtilityClient.TCPrequest(BuildPacket(0x01, 0x11, 4, CMD, _dataBytes, out int dataLength), dataLength, out int _bytes);
+                }
+                if (eventAdr <= 0x04)
+                {
+                    byte[] _dataBytes = {eventAdr, _event };
+                    UtilityClient.TCPrequest(BuildPacket(0x01, 0x11, 2, CMD, _dataBytes, out int dataLength), dataLength, out int _bytes);
+                }
+
             }
             else if (CMD == 0x5b)
             {
@@ -171,11 +180,9 @@ namespace BTR_Server.Protocol
         }
 
 
-
+        byte[] powerDataresponsePaket = new byte[255];
         public void PowerDataProcesing(ref PowerData dataInstance, byte CMD, byte eventAdr = 0x00, byte _event = 0x00)
-        {
-
-            byte[] powerDataresponsePaket = new byte[64];
+        {         
             if (CMD == 0x30)
             {
                 int dataLength;
@@ -223,8 +230,6 @@ namespace BTR_Server.Protocol
                 byte[] _dataBytes = { eventAdr, _event };
                 powerDataresponsePaket =  PowerClient.TCPrequest(BuildPacket(0x01, 0x11, 2, CMD, _dataBytes, out int dataLength), dataLength, out int _bytes);
             }
-
-
         }
 
 
