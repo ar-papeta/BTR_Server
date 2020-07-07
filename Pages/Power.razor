@@ -191,13 +191,13 @@
     {
         if(powerData.SupplyType == 0x01)
         {
-            protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x02);
-            //powerData.SupplyType = 0x02;
+            protocol.PowerDataProcesing(ref powerData, 0x33, 0x01, 0x02);
+            powerData.SupplyType = 0x02;
         }
         else
         {
-            protocol.PowerDataProcesing(ref powerData, 0x33, 0x00, 0x01);
-            //powerData.SupplyType = 0x01;
+            protocol.PowerDataProcesing(ref powerData, 0x33, 0x01, 0x01);
+            powerData.SupplyType = 0x01;
         }
     }
 

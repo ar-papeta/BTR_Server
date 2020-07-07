@@ -12,8 +12,9 @@ namespace BTR_Server.Protocol
         private const string StabServer = "192.168.1.202";
         private const string UtilityServer = "192.168.1.201";
         private const string PowerServer = "192.168.1.200";
+        //private const string PowerServer = "192.168.1.135";
 
-        
+
         private byte[] ResponcePacket = new byte[255];
         private byte[] StabPacket = new byte [32];
         private byte[] PowerPacket = new byte[255];
@@ -40,7 +41,7 @@ namespace BTR_Server.Protocol
             }
             if (PowerClient == null)
             {
-              //PowerClient = new MyTCPClient(PowerServer, Port);
+              PowerClient = new MyTCPClient(PowerServer, Port);
             }
 
 
