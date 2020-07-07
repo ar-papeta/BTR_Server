@@ -1,118 +1,58 @@
 ﻿@page "/meteodata"
+@using BTR_Server.Protocol;
+@using BTR_Server.SpeedLinkJoystick;
+<h1>METEODATA</h1>
 
-<h1>MAIN PAGE</h1>
-<button type="button" class="btn btn-dark btn-danger" @onclick="ResetConnection">Reset Connections!</button>
-<button type="button" class="btn btn-dark btn-danger" @onclick="InitJoy">Init joystick</button>
-<div class="main-page-form">
-    <div class="page-form">
+<div class="speed_control">
+    <h5>Сила вітру м/м</h5>
+    <form onsubmit="return false" oninput="level.value = flevel.valueAsNumber" width="300px">
+        <input name="flevel" id="flying" type="range" min="0" max="50" value="0" step="1">
+        <output for="flying" name="level">0</output>
+    </form>
 
-        <h5>STABILIZATION</h5>
-        <div class="form-group">
-            <label for="inputip">IP</label>
-            <input type="number" class="form-control" id="inputip" aria-describedby="IpHelp" placeholder="Enter IP">
-        </div>
+    <div class="col-md-3 mb-4">
 
-        <div class="form-group">
-            <label for="inputport">Port</label>
-            <input type="number" class="form-control" id="inputport" aria-describedby="PortHelp" placeholder="Enter Port">
-        </div>
-
-        <div>
-
-            <button type="submit" class="btn btn-primary">Check connect</button>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
-                <label class="custom-control-label" for="defaultChecked2">Connected</label>
-            </div>
-        </div>
-
-
-
-    </div>
-
-
-    <div class="page-form">
-        <h5>UTILITY</h5>
-        <div class="form-group">
-            <label for="inputip2">IP</label>
-            <input type="number" class="form-control" id="inputip2" aria-describedby="IpHelp" placeholder="Enter IP">
-        </div>
-
-        <div class="form-group">
-            <label for="inputport2">Port</label>
-            <input type="number" class="form-control" id="inputport2" aria-describedby="PortHelp" placeholder="Enter Port">
-        </div>
-
-        <div>
-
-            <button type="submit" class="btn btn-primary">Check connect</button>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultChecked3" checked>
-                <label class="custom-control-label" for="defaultChecked3">Connected</label>
-            </div>
-        </div>
-
-
-    </div>
-
-
-    <div class="page-form">
-        <h5>POWER</h5>
-        <div class="form-group">
-            <label for="inputip3">IP</label>
-            <input type="number" class="form-control" id="inputip3" aria-describedby="IpHelp" placeholder="Enter IP">
-        </div>
-
-        <div class="form-group">
-            <label for="inputport3">Port</label>
-            <input type="number" class="form-control" id="inputport3" aria-describedby="PortHelp" placeholder="Enter Port">
-        </div>
-
-        <div>
-
-            <button type="submit" class="btn btn-primary">Check connect</button>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultChecked4" checked>
-                <label class="custom-control-label" for="defaultChecked4">Connected</label>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<div class="page-form">
-    <h5>Pocked</h5>
-    <textarea class="span8" rows="3" placeholder="Enter your pocked" required></textarea>
-
-
-    <div class="form-group">
-        <label for="inputip4">IP</label>
-        <input type="number" class="form-control" id="inputip4" aria-describedby="IpHelp" placeholder="Enter IP">
-    </div>
-
-    <div class="form-group">
-        <label for="inputport4">Port</label>
-        <input type="number" class="form-control" id="inputport4" aria-describedby="PortHelp" placeholder="Enter Port">
-    </div>
-
-    <div class="check-send">
-
-        <button type="submit" class="btn btn-primary">Check</button>
-        <div class="custom-control custom-checkbox">
-
-            <input type="checkbox" class="custom-control-input" id="defaultChecked5" checked>
-            <label class="custom-control-label" for="defaultChecked5">Connected</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Send</button>
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="defaultChecked6" checked>
-            <label class="custom-control-label" for="defaultChecked6">Connected</label>
-        </div>
+        <label for="speed_control_input">Сила вітру</label>
+        <input type="number" class="form-control" id="speed_control_input">
+        <button type="button" class="btn btn-dark btn-circle" id="spdcorrection">Submit</button>
     </div>
 
 
 </div>
+
+<div class="temperature_control">
+    <h5>Температура повітря ℃</h5>
+    <form onsubmit="return false" oninput="level2.value = flevel2.valueAsNumber" width="300px">
+        <input name="flevel2" id="flying2" type="range" min="-20" max="40" value="0" step="1">
+        <output for="flying2" name="level2">0</output>
+    </form>
+
+
+
+    <div class="col-md-3 mb-4">
+
+        <label for="temperature_control_input">Температура повітря ℃</label>
+        <input type="number" class="form-control" id="temperature_control_input">
+        <button type="button" class="btn btn-dark btn-circle" id="tmpcorrection">Submit</button>
+    </div>
+
+</div>
+
+<div class="col-md-3 mb-4">
+
+    <label for="wind_control_input">Напрям вітру (-180° to 180°)</label>
+    <input type="number" class="form-control" id="wind_control_input">
+    <button type="button" class="btn btn-dark btn-circle" id="wndcorrection">Submit</button>
+</div>
+
+<div class="col-md-3 mb-4">
+
+    <label for="pressure_control_input">Атмосферний тиск (мм.рт.ст)</label>
+    <input type="number" class="form-control" id="pressure_control_input">
+    <button type="button" class="btn btn-dark btn-circle" id="prsrcorrection">Submit</button>
+</div>
+    
+
 
 @code{
 
